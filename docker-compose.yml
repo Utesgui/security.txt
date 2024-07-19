@@ -13,7 +13,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.security-txt.rule=Path(`/security.txt`)"
-      - "traefik.http.routers.security-txt.entrypoints=https,http"
+#      - "traefik.http.routers.security-txt.entrypoints=https,http"
       - "traefik.http.routers.security-txt.priority=999"
       - "traefik.http.routers.security-txt.tls.certresolver=le-tls" # le-dns, le-tls, le-http
       - "traefik.http.routers.security-txt.service=security-txt"
