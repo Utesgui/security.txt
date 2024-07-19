@@ -70,10 +70,6 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # add static tag latest
-      - name: set tag latest
-        id: tag-static
-        run: echo "tags=latest" >> $GITHUB_OUTPUT
       
       # Merge the tag lists from docker/metadata-action and GitHub API
       - name: Build tag list
@@ -110,16 +106,9 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         env:
           # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-          TAGS: ${{ steps.meta.outputs.tags }}
+          TAGS: ${{ steps.tag-list.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
-
-      # # Keep latest Tag up to date
-      # - name: Update latest image
-      #   uses: silverlyra/latest-image-action@v0.1.0
-      #   with:
-      #     repository: ${{ github.repository }}
-      #     candidate-tag: ${{ github.ref_name }}
 
