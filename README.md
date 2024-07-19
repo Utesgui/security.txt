@@ -9,7 +9,7 @@ Just add the following URL to your stack:
 As well as a environment variable:  
 ```SECURITY_STRING=something```  
 If necessary, you can also change the path the file is served  
-```PATH=/betterpath.json``` -> default is /security.txt
+```SERVINGPATH=/betterpath.json``` -> default is /security.txt
 ![url to repo, add variable](/assets/stacksettings.png)
 
 ## Docker-Compose
