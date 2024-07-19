@@ -100,7 +100,7 @@ jobs:
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
-      # Keep latest Tag upü to date
+      # Keep latest Tag up to date
       - uses: silverlyra/latest-image-action
         with:
           repository: ${{ github.repository }}
