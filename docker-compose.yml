@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   security-txt:
-    build: .
+    image: git.b0t.at/b0t-at/security.txt:latest
     environment:
       - SECURITY_STRING="This is a test security string."
 #    ports:
