@@ -5,6 +5,11 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'docker-compose.yml'
+      - '.github/**'
+      - 'README.md'
+      - 'LICENSE'
 
 env:
   IMAGE_BASE_TAG: git.b0t.at/b0t-at/security.txt
