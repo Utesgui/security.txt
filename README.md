@@ -17,5 +17,5 @@ Use the docker-compose.yml file and change it to your liking.
 Then use `docker-compose up -d` to start the container or Portainer to deploy the stack.
 
 # Variables
-- ```SECURITY_STRING```: The string that should be served under /security.txt
-- ```PATH```: The path the file is served under. Default is /security.txt
+- ```SECURITY_STRING```: The string that should be served
+- ```SERVINGPATH```: The path the file is served under. Default is /security.txt
