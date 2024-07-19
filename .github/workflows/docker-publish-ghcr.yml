@@ -81,7 +81,7 @@ jobs:
         run: |
           TAGS="$(
             echo -n "${{ steps.meta.outputs.tags }}" | tr '\n' ','
-            for r in `echo "latest" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
+            for r in `echo "${{ steps.tag-static.outputs.tags }}" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
           )"
           echo "tags=$TAGS" >> $GITHUB_ENV
 
