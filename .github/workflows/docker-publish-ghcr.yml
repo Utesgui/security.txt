@@ -73,7 +73,7 @@ jobs:
       # add static tag latest
       - name: set tag latest
         id: tag-static
-        run: echo "tags=latest" >> $GITHUB_ENV
+        run: echo "tags=latest" >> $GITHUB_OUTPUT
       
       # Merge the tag lists from docker/metadata-action and GitHub API
       - name: Build tag list
@@ -83,7 +83,7 @@ jobs:
             echo -n "${{ steps.meta.outputs.tags }}" | tr '\n' ','
             for r in `echo "${{ steps.tag-static.outputs.tags }}" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
           )"
-          echo "tags=$TAGS" >> $GITHUB_ENV
+          echo "tags=$TAGS" >> $GITHUB_OUTPUT
 
 
       # Build and push Docker image with Buildx (don't push on PR)
