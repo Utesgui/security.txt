@@ -1,4 +1,4 @@
-name: security.txt Image
+name: git.b0t.at Docker Image
 
 on:
   workflow_dispatch:
