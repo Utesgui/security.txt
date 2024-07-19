@@ -105,4 +105,4 @@ jobs:
         uses: silverlyra/latest-image-action
         with:
           repository: ${{ github.repository }}
-          candidate-tag: ${{ github.ref_name }}
+          candidate-tag: ${{ steps.build-and-push.outputs.digest }}
