@@ -3,7 +3,7 @@ services:
   security-txt:
     image: git.b0t.at/b0t-at/security.txt:latest
     environment:
-      - SECURITY_STRING="This is a test security string."
+      - SECURITY_STRING=${SECURITY_STRING}
 #    ports:
 #      - "80:80"
     networks:
