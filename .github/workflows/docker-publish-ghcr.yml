@@ -69,19 +69,21 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      # Parse Github API output and search for tags only matching the current commit SHA 
+
+      # add static tag latest
       - name: set tag latest
         id: tag-static
-        run: echo ::set-output name=tags::"latest"
+        run: echo "tags=latest" >> $GITHUB_ENV
       
       # Merge the tag lists from docker/metadata-action and GitHub API
       - name: Build tag list
         id: tag-list
         run: |
-          echo ::set-output name=tags::"$(
+          TAGS="$(
             echo -n "${{ steps.meta.outputs.tags }}" | tr '\n' ','
-            for r in `echo "${{ steps.tag-static.outputs.tags }}" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
+            for r in `echo "latest" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
           )"
+          echo "tags=$TAGS" >> $GITHUB_ENV
 
 
       # Build and push Docker image with Buildx (don't push on PR)
