@@ -99,11 +99,3 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
-
-      # Keep latest Tag up to date
-      - name: Update latest image
-        uses: silverlyra/latest-image-action
-        with:
-          repository: ${{ github.repository }}
-          candidate-tag: ${{ github.ref_name }}
-
