@@ -101,7 +101,9 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
       # Keep latest Tag up to date
-      - uses: silverlyra/latest-image-action
+      - name: Update latest image
+        uses: silverlyra/latest-image-action
         with:
           repository: ${{ github.repository }}
           candidate-tag: ${{ github.ref_name }}
+
