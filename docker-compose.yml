@@ -4,6 +4,8 @@ services:
     image: git.b0t.at/b0t-at/security.txt:latest
     environment:
       - SECURITY_STRING=${SECURITY_STRING}
+#    volumes:
+#      - /opt/security-txt/public_html:/usr/share/nginx/html
 #    ports:
 #      - "80:80"
     networks:
