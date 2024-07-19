@@ -4,6 +4,7 @@ services:
     image: git.b0t.at/b0t-at/security.txt:latest
     environment:
       - SECURITY_STRING=${SECURITY_STRING}
+      - PATH=${PATH:-/security.txt}
 #    volumes:
 #      - /opt/security-txt/public_html:/usr/share/nginx/html
 #    ports:
@@ -14,7 +15,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
-      - traefik.http.routers.security-txt.rule=PathRegexp(`security\.txt$`)
+      - traefik.http.routers.security-txt.rule=Path(`${PATH:-/security.txt}`)
       - "traefik.http.routers.security-txt.entrypoints=https,http"
       - "traefik.http.routers.security-txt.priority=420"
       - "traefik.http.routers.security-txt.tls.certresolver=le-tls" # le-dns, le-tls, le-http

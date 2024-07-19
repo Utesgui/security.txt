@@ -7,7 +7,7 @@ if [ -z "$SECURITY_STRING" ]; then
 fi
 
 # Write the content of SECURITY_STRING to /usr/share/nginx/html/security.txt
-echo "$SECURITY_STRING" > /usr/share/nginx/html/security.txt
+echo "$SECURITY_STRING" > /usr/share/nginx/html/$PATH
 
 # Execute the CMD from the Dockerfile, keeping nginx in the foreground
 exec "$@"
