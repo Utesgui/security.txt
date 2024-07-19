@@ -69,6 +69,19 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      # Parse Github API output and search for tags only matching the current commit SHA 
+      - name: set tag latest
+        id: tag-static
+        run: echo ::set-output name=tags::"latest"
+      
+      # Merge the tag lists from docker/metadata-action and GitHub API
+      - name: Build tag list
+        id: tag-list
+        run: |
+          echo ::set-output name=tags::"$(
+            echo -n "${{ steps.meta.outputs.tags }}" | tr '\n' ','
+            for r in `echo "${{ steps.tag-static.outputs.tags }}" | tr '\n' ' '`; do echo -n ,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$r | tr '[:upper:]' '[:lower:]'; done
+          )"
 
 
       # Build and push Docker image with Buildx (don't push on PR)
@@ -79,7 +92,8 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+#          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.tag-list.outputs.tags }}
 #          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
@@ -100,10 +114,10 @@ jobs:
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
-      # Keep latest Tag up to date
-      - name: Update latest image
-        uses: silverlyra/latest-image-action@v0.1.0
-        with:
-          repository: ${{ github.repository }}
-          candidate-tag: ${{ github.ref_name }}
+      # # Keep latest Tag up to date
+      # - name: Update latest image
+      #   uses: silverlyra/latest-image-action@v0.1.0
+      #   with:
+      #     repository: ${{ github.repository }}
+      #     candidate-tag: ${{ github.ref_name }}
 
