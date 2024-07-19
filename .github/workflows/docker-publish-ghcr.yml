@@ -102,7 +102,7 @@ jobs:
 
       # Keep latest Tag up to date
       - name: Update latest image
-        uses: silverlyra/latest-image-action
+        uses: silverlyra/latest-image-action@v0.1.0
         with:
           repository: ${{ github.repository }}
           candidate-tag: ${{ github.ref_name }}
