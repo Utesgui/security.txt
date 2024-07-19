@@ -14,7 +14,7 @@ services:
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.security-txt.rule=PathRegexp(`security\.txt$`)"
       - "traefik.http.routers.security-txt.entrypoints=https,http"
-      - "traefik.http.routers.security-txt.priority=88"
+      - "traefik.http.routers.security-txt.priority=420"
       - "traefik.http.routers.security-txt.tls.certresolver=le-tls" # le-dns, le-tls, le-http
       - "traefik.http.routers.security-txt.service=security-txt"
       - "traefik.http.services.security-txt.loadbalancer.server.port=80"
