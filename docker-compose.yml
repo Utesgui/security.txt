@@ -12,7 +12,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
-      - "traefik.http.routers.security-txt.rule=PathRegexp(`security\.(txt)$`)"
+      - "traefik.http.routers.security-txt.rule=PathRegexp(`security\.txt$`)"
       - "traefik.http.routers.security-txt.entrypoints=https,http"
       - "traefik.http.routers.security-txt.priority=88"
       - "traefik.http.routers.security-txt.tls.certresolver=le-tls" # le-dns, le-tls, le-http
