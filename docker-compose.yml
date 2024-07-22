@@ -2,6 +2,7 @@ version: '3.8'
 services:
   security-txt:
     image: ghcr.io/utesgui/security.txt:latest
+    restart: always
     environment:
       - SECURITY_STRING=${SECURITY_STRING}
       - SERVINGPATH=${SERVINGPATH:-/security.txt}
